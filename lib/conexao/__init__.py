@@ -1,5 +1,4 @@
 import mysql.connector
-from pyautogui import alert
 
 
 def users():
@@ -35,6 +34,8 @@ def passwords():
     return senha
  
 def record(login, senha):
+    from pyautogui import alert
+
     cnx = mysql.connector.connect(database='agenda', password='Analivia2003!@#', user='root', host='localhost')
     cursor = cnx.cursor()
 
@@ -46,4 +47,4 @@ def record(login, senha):
     cnx.close()
     cursor.close()
 
-    return alert('Registrado com sucesso!', 'ALERT!')
+    return alert('Registrado com sucesso!', 'SUCESSO!')
