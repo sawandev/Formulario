@@ -33,7 +33,7 @@ def main():
 
             # Se os dados conferem
             if valores_login['usuario'] in login and valores_login['senha'] in senha:
-                alert('BEM-VINDO AO SISTEMA', f'Bem-vindo {valores_login["usuario"]}', button='Obrigado!')
+                alert('BEM-VINDO AO SISTEMA', f'Bem-vindo {valores_login["usuario"].capitalize()}', button='Obrigado!')
 
             # Se os dados não conferem
             else:
