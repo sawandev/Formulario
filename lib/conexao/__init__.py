@@ -1,38 +1,25 @@
 import mysql.connector
 
 
-def users():
-    cnx = mysql.connector.connect(database='agenda', password='Analivia2003!@#', user='root', host='localhost')
-    cursor = cnx.cursor()
+def login_existente(login, senha):
+    from pyautogui import alert 
     
-    login = []
-    cursor.execute('SELECT login FROM tb_cadastros;')
-    r = cursor.fetchone()
-    while r is not None:
-        login += r
-        r = cursor.fetchone()
-
-    cnx.close()
-    cursor.close()
-
-    return login
-
-def passwords():
     cnx = mysql.connector.connect(database='agenda', password='Analivia2003!@#', user='root', host='localhost')
     cursor = cnx.cursor()
 
-    senha = []
-    cursor.execute('SELECT senha FROM tb_cadastros;')
+    query = f"SELECT login, senha FROM tb_cadastros WHERE login = '{login}' and senha = '{senha}';"
+
+    cursor.execute(query)
+
     r = cursor.fetchone()
-    while r is not None:
-        senha += r
-        r = cursor.fetchone()
 
-    cnx.close()
-    cursor.close()
+    try:
+        existe = list(r)
+        if login == existe[0] and senha == existe[1]:
+            return True
+    except:
+        return False
 
-    return senha
- 
 def record(login, senha):
     from pyautogui import alert
 

@@ -27,12 +27,8 @@ def main():
             break
 
         if eventos_login == 'Entrar':
-            # Confere o login e senha no BD e atualiza as listas
-            login = users()
-            senha = passwords()
-
             # Se os dados conferem
-            if valores_login['usuario'] in login and valores_login['senha'] in senha:
+            if login_existente(valores_login['usuario'], valores_login['senha']):
                 alert('BEM-VINDO AO SISTEMA', f'Bem-vindo {valores_login["usuario"].capitalize()}', button='Obrigado!')
 
             # Se os dados não conferem
