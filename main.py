@@ -1,4 +1,4 @@
-from lib.interface import *
+from lib.form_cadastro import *
 from lib.conexao import *
 
 
@@ -6,17 +6,19 @@ def main():
     from pyautogui import alert
 
     # Tema da janela
-    sg.theme('Black')
+    sg.theme('Topanga')
 
     # Botões e labels
     layout = [
-        [sg.Text('Usuario'), sg.Input(key='usuario', size=(30, 3))],
-        [sg.Text('Senha'), sg.Input(key='senha', password_char='*', size=(31, 3))],
+        [sg.Text('Usuario:'), sg.Input(key='usuario', size=(36, 5))],
+        [sg.Text('Senha:'), sg.Input(key='senha', password_char='*', size=(37, 5))],
         [sg.Button('Entrar')],
-        [sg.Button('Cadastrar')]
+        [sg.Button('Cadastrar-se')]
     ]
 
-    janela_login = sg.Window('Entrar', layout)
+    nome_janela = verifica_cnx()
+
+    janela_login = sg.Window(nome_janela, layout)
 
     # Lendo os eventos
     while True:
@@ -26,17 +28,22 @@ def main():
         if eventos_login == sg.WINDOW_CLOSED:
             break
 
-        if eventos_login == 'Entrar':
-            # Se os dados conferem
-            if login_existente(valores_login['usuario'], valores_login['senha']):
-                alert('BEM-VINDO AO SISTEMA', f'Bem-vindo {valores_login["usuario"].capitalize()}', button='Obrigado!')
+        # Tratamento contra SQL INJECTION, o que não permite o acesso mas quebra a aplicação
+        try:
+            if eventos_login == 'Entrar':
+                # Se os dados conferem
+                if login_existente(valores_login['usuario'], valores_login['senha']):
+                    alert('''BEM-VINDO \nAO SISTEMA''', f'Bem-vindo {valores_login["usuario"].capitalize()}!', button='Obrigado')
 
-            # Se os dados não conferem
-            else:
-                alert('Credenciais incorretas!', 'ERRO!', button='TENTAR NOVAMENTE')
-        
-        if eventos_login == 'Cadastrar':
-            subscribe()
+                # Se os dados não conferem
+                else:
+                    alert('Credenciais incorretas!', 'ERRO!', button='TENTAR NOVAMENTE')
+            
+            # Ao acionar o evento 'Cadastrar', chama o form de cadastro
+            if eventos_login == 'Cadastrar-se':
+                subscribe()      
+        except:
+            alert('Credenciais incorretas! AA', 'ERRO!', button='TENTAR NOVAMENTE')
 
 if __name__ == '__main__':
     main()

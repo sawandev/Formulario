@@ -49,3 +49,13 @@ def record(login, senha):
     cursor.close()
 
     return alert('Registrado com sucesso!', 'SUCESSO!')
+
+def verifica_cnx():
+    nome_janela = 'SAWAN - Sistema Online'
+
+    try:
+        cnx = mysql.connector.connect(database='agenda', password='Analivia2003!@#', user='root', host='localhost')
+    except:
+        nome_janela = 'SAWAN - Sistema Offline'
+    
+    return nome_janela
