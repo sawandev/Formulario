@@ -16,6 +16,7 @@ def main():
         [sg.Button('Cadastrar-se')]
     ]
 
+    # Função que verifica a comunicação com o banco de dados
     nome_janela = verifica_cnx()
 
     janela_login = sg.Window(nome_janela, layout)

@@ -59,3 +59,15 @@ def verifica_cnx():
         nome_janela = 'SAWAN - Sistema Offline'
     
     return nome_janela
+
+"""
+Necessário criar uma única função responsável pela comunicação com o BD, 
+por que não adianta verificar a conexão em todas as função os parâmetros de
+cnx são utilizados.
+IDEIA: Adição de uma função que se caso seja a primeira entrada do usuário,
+que seja pedido os parâmetros do banco de dados para ele, e então, que esses
+dados sejam gravados em um arquivo .txt e buscado por cada função quando 
+necessário. Assim dava para incrementar algum tipo de criptografia nesse
+novo arquivo, podendo esconder os parâmetros do banco de dados e permite 
+a conexão em databases com outros nomes (porem com os mesmo campos).
+"""
