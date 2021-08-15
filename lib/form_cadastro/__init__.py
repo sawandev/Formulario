@@ -1,10 +1,10 @@
-from lib.conexao import *
 from PySimpleGUI import PySimpleGUI as sg
+from pyautogui import alert
+
+from lib.conexao import *
 
 
 def subscribe():
-    from pyautogui import alert
-
     # Tema da janela
     sg.theme('Topanga')
 
@@ -31,12 +31,12 @@ def subscribe():
             try:
                 # Se a as senhas se coincidirem e o novo usuario nao for uma string vazia
                 if valores_cad['nova_senha'] == valores_cad['conf_nova_senha'] and valores_cad['novo_usuario'] != '':
-                    # Fecha o form e envia os novos dados para o servidor                       
+                    # Fecha o form e envia os novos dados para o servidor
+                    janela_cad.close()                       
                     record(valores_cad['novo_usuario'], valores_cad['nova_senha'])
-                    
-
+                
                 # Tratamento de erro caso as senhas forem diferentes
                 if valores_cad['nova_senha'] != valores_cad['conf_nova_senha']:
-                    alert('ERRO! As senhas não são iguais!', 'TENTE NOVAMENTE!')
+                    alert('ERRO! As senhas não são iguais!', 'ERRO! #009',button='TENTE NOVAMENTE!')
             except:
-                alert('ERRO! Não utilize aspas nos campos.', 'TENTE NOVAMENTE', button='ENTENDI!')
+                alert('Você utilizou caracteres inválidos.', 'ERRO! #007', button='ENTENDI!')

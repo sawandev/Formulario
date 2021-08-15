@@ -23,9 +23,7 @@ def main():
         [sg.Button('Cadastrar-se')]
     ]
 
-    # Função que verifica a comunicação com o banco de dados
-    nome_janela = verifica_cnx()
-
+    nome_janela = 'SAWAN - Sistema Online'
     janela_login = sg.Window(nome_janela, layout)
 
     # Lendo os eventos
@@ -36,7 +34,6 @@ def main():
         if eventos_login == sg.WINDOW_CLOSED:
             break
 
-        # Tratamento contra SQL INJECTION, o que não permite o acesso mas quebra a aplicação
         try:
             if eventos_login == 'Entrar':
                 # Se os dados conferem
@@ -45,13 +42,13 @@ def main():
 
                 # Se os dados não conferem
                 else:
-                    alert('Credenciais incorretas!', 'ERRO!', button='TENTAR NOVAMENTE')
+                    alert('Credenciais incorretas!', 'ERRO! #005', button='TENTAR NOVAMENTE')
             
             # Ao acionar o evento 'Cadastrar', chama o form de cadastro
             if eventos_login == 'Cadastrar-se':
                 subscribe()      
         except:
-            alert('Credenciais incorretas! AA', 'ERRO!', button='TENTAR NOVAMENTE')
+            alert('A comunicação com o banco de dados foi perdida!', 'ERRO! #003', button='TENTAR NOVAMENTE')
 
 if __name__ == '__main__':
     main()

@@ -35,10 +35,10 @@ def form_cria_arquivo_bd():
                 valores_bd['user'], 
                 valores_bd['host']):
 
-                # Insere os dados
-                arq = 'conexao_bd.txt'
+                # Insere os dados do banco de dados no arquivo .txt
                 cadastrar(
-                    arq, valores_bd['database'], 
+                    'conexao_bd.txt', 
+                    valores_bd['database'], 
                     valores_bd['password'], 
                     valores_bd['user'], 
                     valores_bd['host']
@@ -51,7 +51,7 @@ def form_cria_arquivo_bd():
                 alert('Banco de dados encontrado e salvo com sucesso!', 'SUCESSO!')
 
             else:
-                alert('Banco de dados NÃO encontrado, por favor, confira os campos.', 'ERRO!')
+                alert('Banco de dados NÃO encontrado, por favor, confira os campos.', 'ERRO! #011', button='TENTE NOVAMENTE')
 
 # Encontra o banco de dados
 def encontra_bd(database, password, user, host):
@@ -85,7 +85,7 @@ def criarArquivo(nome):
         a = open(nome, 'wt+')
         a.close()
     except:
-        alert('Houve um erro na criação do aquivo!', 'ERRO!')
+        alert('Houve um erro na criação do aquivo!', 'ERRO! #013', button='TENTE NOVAMENTE')
     else:
         form_cria_arquivo_bd()
 
@@ -93,7 +93,7 @@ def lerArquivo(nome):
     try:
         a = open(nome, 'rt')
     except:
-        alert('ERRO: Ao ler o arquivo!', 'ERRO!')
+        alert('ERRO: Ao ler o arquivo!', 'ERRO! #015', button='TENTE NOVAMENTE')
     else:
         for argumento in a:
             dado = argumento.split(';')
@@ -105,20 +105,20 @@ def cadastrar(arq, database, password, user, host):
     try:
         a = open(arq, 'at')
     except:
-        alert('Houve um erro ao abrir o arquivo!', 'ERRO!')
+        alert('Houve um erro ao abrir o arquivo!', 'ERRO! #017', button='TENTE NOVAMENTE')
     else:
         try:
             a.write(f'{database};{password};{user};{host};')
         except:
-            alert('Houve um erro ao escrever os dados.', 'ERRO!')
+            alert('Houve um erro ao escrever os dados.', 'ERRO! #019', button='TENTE NOVAMENTE')
         finally:
             a.close()
 
 # Confere se existe o usuário no banco
 def login_existente(login, senha):
-    from pyautogui import alert 
-    
-    cnx = mysql.connector.connect(database='agenda', password='Analivia2003!@#', user='root', host='localhost')
+    itens_conexao = lerArquivo('conexao_bd.txt')  
+
+    cnx = mysql.connector.connect(database=itens_conexao[0], password=itens_conexao[1], user=itens_conexao[2], host=itens_conexao[3])
     cursor = cnx.cursor()
 
     # Chama a STORED PROCEDURE que devolve TRUE para usuário encontrado e FALSE para não encontrado
@@ -143,28 +143,21 @@ def login_existente(login, senha):
 
 # Registra um novno usuário no banco
 def record(login, senha):
-    from pyautogui import alert
-
-    cnx = mysql.connector.connect(database='agenda', password='Analivia2003!@#', user='root', host='localhost')
+    itens_conexao = lerArquivo('conexao_bd.txt')  
+      
+    cnx = mysql.connector.connect(database=itens_conexao[0], password=itens_conexao[1], user=itens_conexao[2], host=itens_conexao[3])
     cursor = cnx.cursor()
 
-    query = """CALL 
+    query = f"""CALL 
                     sp_cadastrar
                             ("{login}",
                              "{senha}");
     """
 
+    cursor.execute(query)
+    cnx.commit()
+
     cnx.close()
     cursor.close()
 
     return alert('Registrado com sucesso!', 'SUCESSO!')
-
-def verifica_cnx():
-    nome_janela = 'SAWAN - Sistema Online'
-
-    try:
-        cnx = mysql.connector.connect(database='agenda', password='Analivia2003!@#', user='root', host='localhost')
-    except:
-        nome_janela = 'SAWAN - Sistema Offline'
-    
-    return nome_janela
