@@ -1,9 +1,16 @@
+from pyautogui import alert
+import PySimpleGUI as sg
+
 from lib.form_cadastro import *
 from lib.conexao import *
 
 
 def main():
-    from pyautogui import alert
+    arq = 'conexao_bd.txt'
+
+    # Se o arquivo conexao_bd.txt não existir
+    if not arquivoExiste(arq):
+        criarArquivo(arq)
 
     # Tema da janela
     sg.theme('Topanga')

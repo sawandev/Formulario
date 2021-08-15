@@ -31,8 +31,9 @@ def subscribe():
             try:
                 # Se a as senhas se coincidirem e o novo usuario nao for uma string vazia
                 if valores_cad['nova_senha'] == valores_cad['conf_nova_senha'] and valores_cad['novo_usuario'] != '':
-                    # Envia os novos dados para o servidor                        
+                    # Fecha o form e envia os novos dados para o servidor                       
                     record(valores_cad['novo_usuario'], valores_cad['nova_senha'])
+                    
 
                 # Tratamento de erro caso as senhas forem diferentes
                 if valores_cad['nova_senha'] != valores_cad['conf_nova_senha']:
