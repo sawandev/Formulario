@@ -38,6 +38,7 @@ def main():
             if eventos_login == 'Entrar':
                 # Se os dados conferem
                 if login_existente(valores_login['usuario'], valores_login['senha']):
+                    janela_login.close()
                     alert('''BEM-VINDO \nAO SISTEMA''', f'Bem-vindo {valores_login["usuario"].capitalize()}!', button='Obrigado')
 
                 # Se os dados não conferem

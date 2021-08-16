@@ -51,7 +51,7 @@ def form_cria_arquivo_bd():
                 alert('Banco de dados encontrado e salvo com sucesso!', 'SUCESSO!')
 
             else:
-                alert('Banco de dados NÃO encontrado, por favor, confira os campos.', 'ERRO! #011', button='TENTE NOVAMENTE')
+                alert('Banco de dados não encontrado, por favor, confira os campos.', 'ERRO! #011', button='TENTE NOVAMENTE')
 
 # Encontra o banco de dados
 def encontra_bd(database, password, user, host):

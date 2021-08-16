@@ -37,6 +37,6 @@ def subscribe():
                 
                 # Tratamento de erro caso as senhas forem diferentes
                 if valores_cad['nova_senha'] != valores_cad['conf_nova_senha']:
-                    alert('ERRO! As senhas não são iguais!', 'ERRO! #009',button='TENTE NOVAMENTE!')
+                    alert('As senhas não são iguais!', 'ERRO! #009',button='TENTE NOVAMENTE!')
             except:
                 alert('Você utilizou caracteres inválidos.', 'ERRO! #007', button='ENTENDI!')
